@@ -1,0 +1,28 @@
+{
+  "name": "step-by-step-express",
+  "version": "1.0.0",
+  "description": "Repositorio de explicación paso por paso de la creación de una API con Express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeeksHubsAcademy/Step-By-Step-Express.git"
+  },
+  "author": "Mara Scampini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeeksHubsAcademy/Step-By-Step-Express/issues"
+  },
+  "homepage": "https://github.com/GeeksHubsAcademy/Step-By-Step-Express#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.4.0",
+    "nodemon": "^2.0.22",
+    "sequelize": "^6.32.1",
+    "sequelize-cli": "^6.6.1"
+  }
+}
