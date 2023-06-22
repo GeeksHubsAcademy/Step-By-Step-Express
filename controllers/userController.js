@@ -1,5 +1,5 @@
 // Si quiero utilizar un modelo, lo importo aquí. Lo importo desestructurado para coger únicamente uno de los modelos desde el índice.
-const { user, role } = require("../models");
+const { user, role, book } = require("../models");
 
 // Creo un objeto vacío para almacenar todos los controladores que voy a crear. Luego lo exportaré y accederé a cada controlador a través de los métodos que voy a crearle dentro de este archivo.
 const userController = {};
@@ -71,6 +71,35 @@ userController.updateUser = async (req, res) => {
       });
     }
   };
+
+  userController.getFavorites = async (req, res) => {
+    try {
+      // Recojo la id del usuario del token. Si utilizo esto para encontrar a mi usuario aseguro que solo puedo editar MI perfil, del usuario que está logueado.
+      let userId = req.userId
+  
+      // Recojo de la tabla de usuarios MIS favoritos usando la ID que tengo en el token e incluyendo el modelo libros.
+      let favorites = await user.findOne({
+        include: {
+          model: book
+        },
+        where: {
+          id: userId
+        }
+      })
+  
+      // Devuelvo los resultados al usuario
+      res.json({
+        message: "User found",
+        data: favorites
+      })
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Could not find favorites",
+        error: error,
+      });
+    }
+  }
 
 // Exporto el objeto con todos los métodos que le he creado, para poder usarlos en mi archivo de rutas.
 module.exports = userController;
