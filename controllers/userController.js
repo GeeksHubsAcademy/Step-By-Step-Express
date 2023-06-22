@@ -1,5 +1,5 @@
 // Si quiero utilizar un modelo, lo importo aquí. Lo importo desestructurado para coger únicamente uno de los modelos desde el índice.
-const { user } = require("../models");
+const { user, role } = require("../models");
 
 // Creo un objeto vacío para almacenar todos los controladores que voy a crear. Luego lo exportaré y accederé a cada controlador a través de los métodos que voy a crearle dentro de este archivo.
 const userController = {};
@@ -7,7 +7,16 @@ const userController = {};
 userController.getAllUsers = async (req, res) => {
   try {
     // Quiero traerme todos los usuarios, por lo que utilizo directamente el método findAll sin ningún criterio concreto de búsqueda. El resultado lo almaceno en la variable users.
-    let users = await user.findAll();
+    let users = await user.findAll({
+        // Si quiero excluir algún campo, lo incluyo aquí
+        attributes: {
+          exclude: ["password"]
+        },
+        // Si quiero incluir los datos de una tabla relacionada, también lo pongo aquí
+        include: [
+          {model: role}
+        ]
+      });
 
     // Devuelvo los datos al usuario
     res.json({
